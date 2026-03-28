@@ -1,21 +1,24 @@
 backend:
   name: git-gateway
-  branch: main # Βεβαιώσου ότι το branch στο GitHub λέγεται main
+  branch: main
 
-media_folder: "images" # Πού θα ανεβαίνουν οι νέες φωτογραφίες
+media_folder: "images"
 public_folder: "images"
 
 collections:
-  - name: "products"
-    label: "Γυαλιά"
-    folder: "data/products" # Εδώ θα αποθηκεύεται κάθε νέο ζευγάρι
-    create: true # Επιτρέπει στον φίλο σου να προσθέτει νέα
-    slug: "{{fields.id}}"
-    extension: "json" # Τα σώζουμε ως json για να τα διαβάζει εύκολα η JS
-    format: "json"
-    fields:
-      - { label: "Όνομα Μοντέλου", name: "name", widget: "string" }
-      - { label: "Τιμή (π.χ. 149.99 €)", name: "price", widget: "string" }
-      - { label: "Φωτογραφία", name: "img", widget: "image" }
-      - { label: "Unique ID (π.χ. roma, arnette_3)", name: "id", widget: "string" }
-      - { label: "Brand", name: "brand", widget: "string" }
+  - name: "catalog"
+    label: "Κατάλογος"
+    files:
+      - label: "Όλα τα Γυαλιά"
+        name: "products"
+        file: "data/products.json"
+        fields:
+          - label: "Λίστα Γυαλιών"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Όνομα Μοντέλου", name: "name", widget: "string" }
+              - { label: "Τιμή (π.χ. 149.99 €)", name: "price", widget: "string" }
+              - { label: "Φωτογραφία", name: "img", widget: "image" }
+              - { label: "Unique ID", name: "id", widget: "string" }
+              - { label: "Brand", name: "brand", widget: "string" }
