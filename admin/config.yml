@@ -18,4 +18,4 @@ collections:
       - { label: "Τιμή (π.χ. 149.99 €)", name: "price", widget: "string" }
       - { label: "Φωτογραφία", name: "img", widget: "image" }
       - { label: "Unique ID (π.χ. roma, arnette_3)", name: "id", widget: "string" }
-      - { label: "Brand (π.χ. arnette, rsf, kors)", name: "brand", widget: "select", options: ["arnette", "rsf", "kors"] }
+      - { label: "Brand", name: "brand", widget: "string" }
