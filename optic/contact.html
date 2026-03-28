@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Psinakis Optical Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #050505; font-family: 'Inter', sans-serif; color: #eeeeee; margin: 0; }
+        .serif-font { font-family: 'Playfair Display', serif; }
+        .gold-accent { color: #D4AF37; }
+        /* Φίλτρο για να φαίνεται ο χάρτης "σκοτεινός" και να ταιριάζει με το site */
+        .dark-map { filter: grayscale(80%) invert(90%) contrast(1.1); border: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-white font-light">
+            <h1 class="text-xl font-bold tracking-widest uppercase">Psinakis <span class="gold-accent">Optical Store</span></h1>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider">
+                <a href="index.html" class="hover:text-[#D4AF37] transition text-gray-400">Home</a>
+                <a href="arnette.html" class="hover:text-[#D4AF37] transition text-gray-400">Arnette</a>
+                <a href="retrosuperfuture.html" class="hover:text-[#D4AF37] transition text-gray-400">Retrosuperfuture</a>
+                <a href="order.html" class="hover:text-[#D4AF37] transition text-gray-400">Order</a>
+                <a href="contact.html" class="gold-accent underline underline-offset-8">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-16 text-center text-white">
+        <h2 class="text-5xl serif-font mb-2 uppercase tracking-widest">Contact</h2>
+        <p class="text-gray-400 mt-4 italic">Visit us in Psahna</p>
+        <div class="w-20 h-1 bg-[#D4AF37] mx-auto mt-4"></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start text-white">
+            <div class="w-full h-[450px] overflow-hidden rounded-lg border border-gray-800">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Αβάντων%2019,%20Ψαχνά%2034400&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                    class="w-full h-full dark-map" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <div class="space-y-8 bg-[#0f0f0f] p-10 border border-gray-800 rounded-lg shadow-2xl">
+                <div>
+                    <h3 class="text-2xl gold-accent serif-font mb-4 uppercase tracking-widest">Store Info</h3>
+                    <p class="mb-4 text-lg">📍 Αβάντων 19, Ψαχνά, 34400</p>
+                    <p class="mb-4 text-lg">📞 <a href="tel:2228023600" class="hover:text-[#D4AF37] transition">2228023600</a></p>
+                    <p class="text-lg">✉️ <a href="mailto:nikosgeorgiou122@gmail.com" class="hover:text-[#D4AF37] transition">nikosgeorgiou122@gmail.com</a></p>
+                </div>
+                
+                <div class="pt-8 border-t border-gray-800">
+                    <h3 class="text-xl gold-accent serif-font mb-4 uppercase tracking-widest text-sm">Opening Hours</h3>
+                    <div class="space-y-2 text-gray-400 text-sm">
+                        <p class="flex justify-between"><span>Monday - Friday</span> <span>09:00 - 21:00</span></p>
+                        <p class="flex justify-between"><span>Saturday</span> <span>09:00 - 15:00</span></p>
+                        <p class="flex justify-between text-red-500 font-semibold uppercase text-xs pt-2"><span>Sunday</span> <span>Closed</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-[10px] text-gray-600 uppercase tracking-widest">
+        © 2026 Psinakis Optical Store | Built by kourtessiotis
+    </footer>
+</body>
+</html>

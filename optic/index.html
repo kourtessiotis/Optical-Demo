@@ -1,0 +1,50 @@
+<script>
+    // 1. Η στατική λίστα που ήδη έχουμε (τα αρχικά γυαλιά)
+    const initialProducts = [
+        { name: "RETROSUPERFUTURE Roma Black", price: "249.99 €", img: "S1.jpg", id: "roma" },
+        { name: "RETROSUPERFUTURE Caro Black with Blue Lenses", price: "159.99 €", img: "S2.jpg", id: "caro" },
+        { name: "MICHAEL KORS MK2259U", price: "139.99 €", img: "S3.jpg", id: "kors" },
+        { name: "RETROSUPERFUTURE Fred 2.0 3627", price: "199.99 €", img: "S4.jpg", id: "fred" },
+        { name: "ARNETTE 7201 BIG BAD", price: "69.99 €", img: "S5.jpg", id: "arnette_big" },
+        { name: "Arnette Black", price: "69.99 €", img: "S6.jpg", id: "arnette_black" }
+    ];
+
+    async function displayAllProducts() {
+        const container = document.getElementById('random-products');
+        let allProducts = [...initialProducts];
+
+        try {
+            // 2. ΕΔΩ ΓΙΝΕΤΑΙ Η ΜΑΓΕΙΑ: Τραβάμε τα νέα προϊόντα από τον φάκελο data/products
+            // Το Netlify CMS σώζει εκεί αρχεία .json
+            const response = await fetch('/data/products/index.json').catch(() => null);
+            if (response && response.ok) {
+                const newProducts = await response.json();
+                allProducts = [...allProducts, ...newProducts];
+            }
+        } catch (e) {
+            console.log("No new products found yet.");
+        }
+
+        // Ανακάτεμα για να φαίνεται πάντα φρέσκο το site
+        const shuffled = allProducts.sort(() => 0.5 - Math.random());
+
+        container.innerHTML = '';
+        shuffled.forEach(p => {
+            container.innerHTML += `
+                <div class="group">
+                    <div class="border border-gray-800 overflow-hidden">
+                        <img src="${p.img}" class="w-full h-[400px] object-cover transition transform group-hover:scale-105">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="text-sm uppercase text-gray-400">${p.name}</h3>
+                        <p class="gold-accent font-semibold">${p.price}</p>
+                        <a href="order.html?model=${p.id}" class="inline-block mt-4 px-6 py-2 border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition text-[10px] font-bold uppercase tracking-widest">
+                            Order Now
+                        </a>
+                    </div>
+                </div>`;
+        });
+    }
+
+    window.onload = displayAllProducts;
+</script>
