@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form | Psinakis Optical Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #050505; font-family: 'Inter', sans-serif; color: #eeeeee; margin: 0; }
+        .serif-font { font-family: 'Playfair Display', serif; }
+        .gold-accent { color: #D4AF37; }
+        input, select, textarea { background-color: #111 !important; border: 1px solid #333 !important; color: white !important; }
+        input:focus { border-color: #D4AF37 !important; outline: none; }
+    </style>
+</head>
+<body>
+    <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800 px-6 py-4 text-white font-light">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-widest uppercase">Psinakis <span class="gold-accent">Optical Store</span></h1>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider">
+                <a href="index.html" class="hover:text-[#D4AF37] transition font-light">Home</a>
+                <a href="arnette.html" class="hover:text-[#D4AF37] transition font-light">Arnette</a>
+                <a href="retrosuperfuture.html" class="hover:text-[#D4AF37] transition font-light">Retrosuperfuture</a>
+                <a href="order.html" class="gold-accent underline underline-offset-8">Order</a>
+                <a href="contact.html" class="hover:text-[#D4AF37] transition font-light">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-16">
+        <h2 class="text-4xl serif-font text-center mb-2 uppercase tracking-widest text-white">Place your Order</h2>
+        <div class="w-20 h-1 bg-[#D4AF37] mx-auto mb-12"></div>
+
+        <form id="orderForm" action="https://formspree.io/f/xeepebbo" method="POST" class="space-y-6 bg-[#0f0f0f] p-8 border border-gray-800 rounded-lg shadow-xl">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Ονοματεπώνυμο</label>
+                    <input type="text" name="name" required class="w-full p-3 rounded" placeholder="π.χ. Νίκος Παπαδόπουλος">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Τηλέφωνο Επικοινωνίας</label>
+                    <input type="tel" name="phone" required class="w-full p-3 rounded" placeholder="69XXXXXXXX">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email <span class="text-[10px] lowercase text-gray-600">(προαιρετικά)</span></label>
+                <input type="email" name="email" class="w-full p-3 rounded" placeholder="your@email.com">
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Επιλογή Μοντέλου</label>
+                <select name="product" id="productSelect" required class="w-full p-3 rounded">
+                    <option value="">Επιλέξτε γυαλιά...</option>
+                    <option value="RSF Roma Black">RSF Roma Black - 249.99 €</option>
+                    <option value="RSF Caro Black">RSF Caro Black - 159.99 €</option>
+                    <option value="RSF Fred 2.0">RSF Fred 2.0 - 199.99 €</option>
+                    <option value="Arnette Big Bad">Arnette 7201 Big Bad - 69.99 €</option>
+                    <option value="Arnette Black">Arnette Black - 69.99 €</option>
+                    <option value="Michael Kors MK2259U">Michael Kors MK2259U - 139.99 €</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Τρόπος Παραλαβής / Πληρωμής</label>
+                <select name="shipping_method" required class="w-full p-3 rounded">
+                    <option value="Store Pickup">Παραλαβή από το κατάστημα (Ψαχνά)</option>
+                    <option value="COD">Αντικαταβολή (Πληρωμή στην παράδοση)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Διεύθυνση Αποστολής (αν ισχύει)</label>
+                <textarea name="address" rows="2" class="w-full p-3 rounded" placeholder="Οδός, Αριθμός, Πόλη, ΤΚ"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full py-4 bg-[#D4AF37] text-black font-bold uppercase tracking-widest hover:bg-white transition duration-300">
+                Ολοκληρωση Παραγγελιας
+            </button>
+            
+            <p id="status" class="text-[10px] text-center mt-4"></p>
+        </form>
+    </main>
+
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-[10px] text-gray-600 uppercase tracking-widest">
+        © 2026 Psinakis Optical Store | Built by kourtessiotis
+    </footer>
+
+    <script>
+        // 1. Διαχείριση URL Parameters (όπως πριν)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const model = urlParams.get('model');
+            const select = document.getElementById('productSelect');
+
+            if (model === 'roma') select.value = "RSF Roma Black";
+            if (model === 'caro') select.value = "RSF Caro Black";
+            if (model === 'fred') select.value = "RSF Fred 2.0";
+            if (model === 'arnette_big') select.value = "Arnette Big Bad";
+            if (model === 'arnette_black') select.value = "Arnette Black";
+            if (model === 'kors') select.value = "Michael Kors MK2259U";
+        };
+
+        // 2. AJAX Υποβολή για να αποφύγουμε τη σελίδα του Formspree
+        const form = document.getElementById("orderForm");
+        const btn = document.getElementById("submitBtn");
+        const status = document.getElementById("status");
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "ΑΠΟΣΤΟΛΗ...";
+            
+            const data = new FormData(event.target);
+            
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // ΑΝ ΟΛΑ ΠΑΝΕ ΚΑΛΑ, ΠΑΜΕ ΣΤΟ SUCCESS.HTML
+                    window.location.href = "success.html";
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = "Σφάλμα κατά την αποστολή.";
+                        }
+                    })
+                }
+            }).catch(error => {
+                status.innerHTML = "Υπήρξε πρόβλημα με τη σύνδεση.";
+            }).finally(() => {
+                btn.disabled = false;
+                btn.innerText = "ΟΛΟΚΛΗΡΩΣΗ ΠΑΡΑΓΓΕΛΙΑΣ";
+            });
+        });
+    </script>
+</body>
+</html>
