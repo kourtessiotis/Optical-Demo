@@ -61,15 +61,13 @@
             let allProducts = [...initialProducts];
 
             try {
-                // Ψάχνει νέα προϊόντα από το Netlify CMS
-                const response = await fetch('/data/products/index.json');
+                // Η ΔΙΟΡΘΩΣΗ: Διαβάζει πλέον το σωστό κεντρικό αρχείο
+                const response = await fetch('/data/products.json');
                 if (response.ok) {
-                    const contentType = response.headers.get("content-type");
-                    if (contentType && contentType.includes("application/json")) {
-                        const newProducts = await response.json();
-                        if (Array.isArray(newProducts)) {
-                            allProducts = [...allProducts, ...newProducts];
-                        }
+                    const data = await response.json();
+                    // Ελέγχει αν υπάρχει η λίστα "items" μέσα στο JSON
+                    if (data && Array.isArray(data.items)) {
+                        allProducts = [...allProducts, ...data.items];
                     }
                 }
             } catch (e) {
