@@ -1,11 +1,3 @@
 {
-  "items": [
-    {
-      "name": "SUPERNOVA",
-      "price": "123.99",
-      "img": "images/στιγμιότυπο-οθόνης-2026-03-20-224121.png",
-      "id": "COD",
-      "brand": "PRADA"
-    }
-  ]
+  "items": []
 }
