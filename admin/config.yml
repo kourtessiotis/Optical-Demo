@@ -19,6 +19,7 @@ collections:
             fields:
               - { label: "Όνομα Μοντέλου", name: "name", widget: "string" }
               - { label: "Τιμή (π.χ. 149.99 €)", name: "price", widget: "string" }
+              - { label: "Περιγραφή", name: "description", widget: "text", required: false }
               - { label: "Φωτογραφία", name: "img", widget: "image" }
               - { label: "Unique ID", name: "id", widget: "string" }
               - { label: "Brand", name: "brand", widget: "string" }
