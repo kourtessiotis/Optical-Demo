@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Psinakis Optical</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000; color: #fff; }
+        .gold-accent { color: #D4AF37; }
+        .bg-gold { background-color: #D4AF37; }
+        .hover-gold:hover { color: #D4AF37; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <nav class="p-6 border-b border-gray-800 flex justify-between items-center">
+        <div class="text-2xl font-bold tracking-widest uppercase">
+            PSINAKIS <span class="gold-accent">OPTICAL</span>
+        </div>
+        <div class="hidden md:flex space-x-6 text-sm uppercase tracking-wide">
+            <a href="index.html" class="hover-gold transition">Home</a>
+            <a href="arnette.html" class="hover-gold transition">Arnette</a>
+            <a href="retrosuperfuture.html" class="hover-gold transition">RetroSuperFuture</a>
+        </div>
+    </nav>
+
+    <main id="product-display" class="max-w-6xl mx-auto px-4 py-16">
+        <p class="text-center text-gray-500">Φόρτωση προϊόντος...</p>
+    </main>
+
+    <script>
+        const initialProducts = [
+            { name: "RETROSUPERFUTURE Roma Black", price: "249.99 €", img: "S1.jpg", id: "roma", description: "Κλασικό, διαχρονικό σχέδιο από την RETROSUPERFUTURE." },
+            { name: "RETROSUPERFUTURE Caro Black with Blue Lenses", price: "159.99 €", img: "S2.jpg", id: "caro", description: "Μοντέρνα γραμμή με εντυπωσιακούς μπλε φακούς." },
+            { name: "MICHAEL KORS MK2259U", price: "139.99 €", img: "S3.jpg", id: "kors", description: "Κομψότητα και στιλ με την υπογραφή του Michael Kors." },
+            { name: "RETROSUPERFUTURE Fred 2.0 3627", price: "199.99 €", img: "S4.jpg", id: "fred", description: "Premium κατασκευή για ξεχωριστές εμφανίσεις." },
+            { name: "ARNETTE 7201 BIG BAD", price: "69.99 €", img: "S5.jpg", id: "arnette_big", description: "Σπορ διάθεση και αντοχή από την Arnette." },
+            { name: "Arnette Black", price: "69.99 €", img: "S6.jpg", id: "arnette_black", description: "Ιδανικό για καθημερινή, ξεκούραστη χρήση." }
+        ];
+
+        async function loadProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('model');
+            const container = document.getElementById('product-display');
+
+            if (!productId) {
+                container.innerHTML = `<p class="text-center text-red-500">Δεν βρέθηκε προϊόν.</p>`;
+                return;
+            }
+
+            let allProducts = [...initialProducts];
+
+            try {
+                const response = await fetch('/data/products.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && Array.isArray(data.items)) {
+                        allProducts = [...allProducts, ...data.items];
+                    }
+                }
+            } catch (e) {
+                console.log("Δεν βρέθηκε το αρχείο νέων προϊόντων.");
+            }
+
+            const product = allProducts.find(p => p.id === productId);
+
+            if (product) {
+                const imageSrc = product.img || "S1.jpg";
+                const description = product.description || "Δεν υπάρχει διαθέσιμη περιγραφή για αυτό το μοντέλο.";
+                
+                container.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
+                        <div class="w-full md:w-1/2 border border-gray-800 p-4">
+                            <img src="${imageSrc}" alt="${product.name}" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <div class="w-full md:w-1/2 flex flex-col justify-center h-full pt-8 md:pt-0">
+                            <h2 class="text-sm text-gray-500 uppercase tracking-widest mb-2">${product.brand || "PSINAKIS OPTICAL"}</h2>
+                            <h1 class="text-3xl md:text-5xl font-light uppercase tracking-wider mb-6">${product.name}</h1>
+                            <p class="text-2xl gold-accent font-bold mb-8">${product.price}</p>
+                            
+                            <div class="mb-10 text-gray-400 leading-relaxed">
+                                <p>${description}</p>
+                            </div>
+                            
+                            <a href="order.html?model=${product.id}" class="inline-block text-center w-full md:w-auto px-10 py-4 bg-gold text-black font-bold uppercase tracking-widest hover:bg-white transition duration-300">
+                                Buy Now
+                            </a>
+                            
+                            <a href="index.html" class="block mt-6 text-sm text-gray-500 hover-gold transition uppercase tracking-widest uppercase">
+                                ← Back to Collection
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<p class="text-center text-red-500">Το προϊόν δεν βρέθηκε.</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+</html>
