@@ -18,17 +18,25 @@
 </head>
 <body class="font-sans antialiased">
 
-    <nav class="p-6 border-b border-gray-800 flex justify-between items-center">
-        <div class="text-2xl font-bold tracking-widest uppercase">
-            PSINAKIS <span class="gold-accent">OPTICAL</span>
-        </div>
-        <div class="hidden md:flex space-x-6 text-sm uppercase tracking-wide">
-            <a href="index.html" class="gold-accent">Home</a>
-            <a href="arnette.html" class="hover-gold transition">Arnette</a>
-            <a href="retrosuperfuture.html" class="hover-gold transition">RetroSuperFuture</a>
-            <a href="contact.html" class="hover-gold transition">Contact</a>
-        </div>
-    </nav>
+    <nav class="p-6 border-b border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-2xl font-bold tracking-widest uppercase">
+        PSINAKIS <span class="gold-accent">OPTICAL</span>
+    </div>
+
+    <div class="hidden md:flex space-x-6 text-sm uppercase tracking-wide">
+        <a href="index.html" class="gold-accent">Home</a>
+        <a href="arnette.html" class="hover-gold transition">Arnette</a>
+        <a href="retrosuperfuture.html" class="hover-gold transition">RetroSuperFuture</a>
+        <a href="contact.html" class="hover-gold transition">Contact</a>
+    </div>
+
+    <div class="flex md:hidden space-x-4 text-[10px] uppercase tracking-widest overflow-x-auto pb-2 w-full justify-center">
+        <a href="index.html" class="gold-accent whitespace-nowrap">Home</a>
+        <a href="arnette.html" class="hover-gold transition whitespace-nowrap">Arnette</a>
+        <a href="retrosuperfuture.html" class="hover-gold transition whitespace-nowrap">RetroSuperFuture</a>
+        <a href="contact.html" class="hover-gold transition whitespace-nowrap">Contact</a>
+    </div>
+</nav>
 
     <header class="text-center py-20 px-4">
         <h1 class="text-4xl md:text-6xl font-light uppercase tracking-widest mb-4">Discover Your <br><span class="font-bold gold-accent">Perfect Vision</span></h1>
