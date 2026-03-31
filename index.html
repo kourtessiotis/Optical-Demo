@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psinakis Optical | Premium Sunglasses</title>
+    
+    <meta name="description" content="Ανακαλύψτε την premium συλλογή γυαλιών ηλίου στο Psinakis Optical. Επίσημος μεταπωλητής Arnette, Retrosuperfuture και Michael Kors.">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
     
     <style>
         body { background-color: #000; color: #fff; }
@@ -36,12 +39,12 @@
         <h2 class="text-2xl uppercase tracking-widest text-center mb-12 border-b border-gray-800 pb-4 inline-block">New Arrivals</h2>
         
         <div id="random-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <p class="text-center text-gray-500 col-span-full">Φόρτωση συλλογής...</p>
+            <p class="text-center text-gray-400 col-span-full">Φόρτωση συλλογής...</p>
         </div>
     </main>
 
     <footer class="border-t border-gray-800 py-8 text-center mt-12">
-        <p class="text-xs text-gray-500 uppercase tracking-widest">&copy; 2026 Psinakis Optical. All rights reserved.</p>
+        <p class="text-xs text-gray-400 uppercase tracking-widest">&copy; 2026 Psinakis Optical. All rights reserved.</p>
     </footer>
 
     <script>
@@ -61,11 +64,9 @@
             let allProducts = [...initialProducts];
 
             try {
-                // Η ΔΙΟΡΘΩΣΗ: Διαβάζει πλέον το σωστό κεντρικό αρχείο
                 const response = await fetch('/data/products.json');
                 if (response.ok) {
                     const data = await response.json();
-                    // Ελέγχει αν υπάρχει η λίστα "items" μέσα στο JSON
                     if (data && Array.isArray(data.items)) {
                         allProducts = [...allProducts, ...data.items];
                     }
@@ -74,21 +75,20 @@
                 console.log("Δεν βρέθηκαν νέα προϊόντα από το Admin Panel ακόμα.");
             }
 
-            // Ανακάτεμα
             const shuffled = allProducts.sort(() => 0.5 - Math.random());
 
-            // Εμφάνιση
             container.innerHTML = '';
             shuffled.forEach(p => {
                 const imageSrc = p.img || "S1.jpg";
+                const productName = p.name || "Νέο Μοντέλο";
                 
                 container.innerHTML += `
                     <div class="group">
                         <div class="border border-gray-800 overflow-hidden">
-                            <img src="${imageSrc}" class="w-full h-[400px] object-cover transition transform group-hover:scale-105">
+                            <img src="${imageSrc}" alt="${productName}" class="w-full h-[400px] object-cover transition transform group-hover:scale-105">
                         </div>
                         <div class="mt-4 text-center">
-                            <h3 class="text-sm uppercase text-gray-400">${p.name || "Νέο Μοντέλο"}</h3>
+                            <h3 class="text-sm uppercase text-gray-300">${productName}</h3>
                             <p class="gold-accent font-semibold">${p.price || "Ρωτήστε Τιμή"}</p>
                             <a href="product.html?model=${p.id}" class="inline-block mt-4 px-6 py-2 border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition text-[10px] font-bold uppercase tracking-widest">
                                 Order Now
@@ -98,11 +98,9 @@
             });
         }
 
-        // Τρέχει μόλις φορτώσει το HTML
         document.addEventListener('DOMContentLoaded', () => {
             displayAllProducts(); 
 
-            // Netlify Identity Login
             if (window.netlifyIdentity) {
                 window.netlifyIdentity.on("init", user => {
                     if (!user) {
